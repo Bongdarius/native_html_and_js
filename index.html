@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제목</title>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+</html>
+<script>
+  window.onload = (e) => {
+    fetch("/component/Button.html")
+      .then((response) => {
+        return response.text();
+      })
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+        const el = doc.body.firstChild;
+        const mainDiv = document.getElementById("main");
+        mainDiv.appendChild(el);
+
+        const scriptEl = document.createElement("script");
+        scriptEl.textContent = doc.querySelector("script").textContent;
+        document.body.appendChild(scriptEl);
+      });
+  };
+</script>
