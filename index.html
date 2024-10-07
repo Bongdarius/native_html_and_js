@@ -6,25 +6,46 @@
     <title>제목</title>
   </head>
   <body>
-    <div id="main"></div>
+    <div id="grid"></div>
   </body>
 </html>
+<script src="/lib/tui-grid.js"></script>
+<link rel="stylesheet" type="text/css" href="/lib/tui-grid.css" />
 <script>
   window.onload = (e) => {
-    fetch("/component/Button.html")
-      .then((response) => {
-        return response.text();
-      })
-      .then((html) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        const el = doc.body.firstChild;
-        const mainDiv = document.getElementById("main");
-        mainDiv.appendChild(el);
+    const Grid = tui.Grid;
+    const instance = new Grid({
+      el: document.getElementById("grid"), // Container element
+      columns: [
+        {
+          header: "Name",
+          name: "name",
+        },
+        {
+          header: "Artist",
+          name: "artist",
+        },
+        {
+          header: "Release",
+          name: "release",
+        },
+        {
+          header: "Genre",
+          name: "genre",
+        },
+      ],
+      data: [
+        {
+          name: "Beautiful Lies",
+          artist: "Birdy",
+          release: "2016.03.26",
+          genre: "Pop",
+        },
+      ],
+    });
 
-        const scriptEl = document.createElement("script");
-        scriptEl.textContent = doc.querySelector("script").textContent;
-        document.body.appendChild(scriptEl);
-      });
+    instance.resetData(newData); // Call API of instance's public method
+
+    Grid.applyTheme("striped"); // Call API of static method
   };
 </script>
