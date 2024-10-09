@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제목</title>
+  </head>
+  <body>
+    <div id="grid"></div>
+  </body>
+</html>
+<script src="/lib/tui-grid.js"></script>
+<link rel="stylesheet" type="text/css" href="/lib/tui-grid.css" />
+<script>
+  window.onload = (e) => {
+    const Grid = tui.Grid;
+    const instance = new Grid({
+      el: document.getElementById("grid"), // Container element
+      columns: [
+        {
+          header: "Name",
+          name: "name",
+        },
+        {
+          header: "Artist",
+          name: "artist",
+        },
+        {
+          header: "Release",
+          name: "release",
+        },
+        {
+          header: "Genre",
+          name: "genre",
+        },
+      ],
+      data: [
+        {
+          name: "Beautiful Lies",
+          artist: "Birdy",
+          release: "2016.03.26",
+          genre: "Pop",
+        },
+      ],
+    });
+
+    instance.resetData(newData); // Call API of instance's public method
+
+    Grid.applyTheme("striped"); // Call API of static method
+  };
+</script>
